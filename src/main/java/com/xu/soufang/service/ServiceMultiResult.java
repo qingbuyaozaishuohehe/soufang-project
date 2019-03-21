@@ -12,9 +12,14 @@ import java.util.List;
  */
 @Data
 public class ServiceMultiResult<T> {
-    private Long total;
+    private Integer total;
 
     private List<T> result;
+
+    public ServiceMultiResult(Integer total, List<T> result) {
+        this.total = total;
+        this.result = result;
+    }
 
     public int getResultSize(){
         if (this.result==null){

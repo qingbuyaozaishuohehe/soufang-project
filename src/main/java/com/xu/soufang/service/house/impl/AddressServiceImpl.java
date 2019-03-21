@@ -2,6 +2,7 @@ package com.xu.soufang.service.house.impl;
 
 import com.xu.soufang.entity.SupportAddress;
 import com.xu.soufang.repository.SupportAddressRepository;
+import com.xu.soufang.service.ServiceMultiResult;
 import com.xu.soufang.service.house.IAddressService;
 import com.xu.soufang.web.controller.dto.house.SupportAddressDto;
 import org.modelmapper.ModelMapper;
@@ -21,7 +22,7 @@ public class AddressServiceImpl implements IAddressService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<SupportAddressDto> findAllCities() {
+    public ServiceMultiResult<SupportAddressDto> findAllCities() {
         List<SupportAddress> addresses = supportAddressRepository.findAllByLevel(SupportAddress.Level.CITY.getValue());
 
         List<SupportAddressDto> supportAddressDtos = new ArrayList<>();
@@ -30,6 +31,6 @@ public class AddressServiceImpl implements IAddressService {
             SupportAddressDto target = modelMapper.map(address,SupportAddressDto.class);
             supportAddressDtos.add(target);
         }
-        return supportAddressDtos;
+        return new ServiceMultiResult<>(supportAddressDtos.size(),supportAddressDtos);
     }
 }
