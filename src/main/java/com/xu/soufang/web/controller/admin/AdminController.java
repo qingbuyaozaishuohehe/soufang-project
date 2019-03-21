@@ -6,6 +6,7 @@ import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.xu.soufang.base.ApiResponse;
 import com.xu.soufang.service.house.IQiNiuService;
+import com.xu.soufang.web.controller.dto.QiNiuPutRet;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,7 +35,7 @@ public class AdminController {
     private IQiNiuService qiNiuService;
 
     @Autowired
-    private Gson gsonl;
+    private Gson gson;
 
     @GetMapping("/admin/center")
     public String adminCenterPage(){
@@ -67,23 +68,31 @@ public class AdminController {
             InputStream inputStream = file.getInputStream();
             Response response = qiNiuService.uploadFile(inputStream);
             if (response.isOK()){
-                    
-                /*return ApiResponse.ofSuccess()*/
+                QiNiuPutRet qiNiuPutRet = gson.fromJson(response.bodyString(), QiNiuPutRet.class);
+                return ApiResponse.ofSuccess(qiNiuPutRet);
             }else {
                 return ApiResponse.ofMessage(response.statusCode,response.getInfo());
             }
-        } catch (IOException e) {
+        } catch (QiniuException e ){
+            Response response = e.response;
+            try {
+                return ApiResponse.ofMessage(response.statusCode,response.bodyString());
+            } catch (QiniuException e1) {
+                e1.printStackTrace();
+                return ApiResponse.ofStatus(ApiResponse.Status.INTERNAL_SERVER_ERROR);
+            }
+        }catch (IOException e) {
             e.printStackTrace();
             return ApiResponse.ofStatus(ApiResponse.Status.INTERNAL_SERVER_ERROR);
         }
-        File target = new File("D:/workspace/myproject/soufang/tmp/"+fileName);
+       /* File target = new File("D:/workspace/myproject/soufang/tmp/"+fileName);
         try {
             file.transferTo(target);
         } catch (IOException e) {
             e.printStackTrace();
             return ApiResponse.ofStatus(ApiResponse.Status.INTERNAL_SERVER_ERROR);
         }
-        return ApiResponse.ofSuccess(null);
+        return ApiResponse.ofSuccess(null);*/
         }
 
 

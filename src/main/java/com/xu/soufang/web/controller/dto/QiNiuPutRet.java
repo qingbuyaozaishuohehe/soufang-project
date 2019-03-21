@@ -1,6 +1,5 @@
 package com.xu.soufang.web.controller.dto;
 
-import lombok.Data;
 
 /**
  * QiNiuPutRet
@@ -8,8 +7,7 @@ import lombok.Data;
  * @author xuzhenqin
  * @date 2019/3/1
  */
-@Data
-public class QiNiuPutRet {
+public final class QiNiuPutRet {
 
     public String key;
 
@@ -19,6 +17,16 @@ public class QiNiuPutRet {
 
     public int width;
 
-    private int height;
+    public int height;
 
+    @Override
+    public String toString() {
+        return "QiNiuPutRet{" +
+                "key='" + key + '\'' +
+                ", hash='" + hash + '\'' +
+                ", bucket='" + bucket + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }
