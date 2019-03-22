@@ -14,9 +14,19 @@ import java.util.List;
 public interface SupportAddressRepository extends CrudRepository<SupportAddress,Integer> {
 
     /**
+     * @param level
      * 获取所有对应行政级别的信息
      * @return
      */
-    public List<SupportAddress> findAllByLevel(String a);
+     List<SupportAddress> findAllByLevel(String level);
+
+    /**
+     * 根据城市名查询
+     * @param level
+     * @param cityName
+     * @return
+     */
+     List<SupportAddress> findAllByLevelAndBelongTo(String level,String cityName);
+
 
 }

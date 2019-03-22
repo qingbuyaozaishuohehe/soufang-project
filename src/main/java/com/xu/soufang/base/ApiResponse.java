@@ -49,6 +49,8 @@ public class ApiResponse {
          */
         SUCCESS(200,"ok"),
 
+        NOT_FOUND(404,"NOT FOUNT"),
+
         BAD_REQUEST(400,"Bad Request"),
 
         INTERNAL_SERVER_ERROR(500,"Unknow Internal Error"),
