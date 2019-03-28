@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @GetMapping("/")
-    public String index(Model model){
-        model.addAttribute("name","慕课");
-        return "index";
+    public String index(){
+        return "admin/center";
     }
 
     @GetMapping("/get")

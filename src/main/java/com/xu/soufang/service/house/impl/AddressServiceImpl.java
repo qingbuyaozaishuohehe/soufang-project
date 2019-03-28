@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author
+ */
 @Service
 public class AddressServiceImpl implements IAddressService {
 
@@ -69,10 +72,12 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public List<SubwayStationDTO> findAllStationBySubway(Integer subwayId) {
         List<SubwayStationDTO> result = new ArrayList<>();
+
         List<SubwayStation> stations = subwayStationRepository.findAllBySubwayId(subwayId);
         if (stations.isEmpty()) {
             return result;
         }
+
         stations.forEach(station -> result.add(modelMapper.map(station, SubwayStationDTO.class)));
         return result;
     }

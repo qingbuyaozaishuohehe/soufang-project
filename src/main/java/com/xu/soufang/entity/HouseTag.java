@@ -1,5 +1,7 @@
 package com.xu.soufang.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,45 +14,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "house_tag")
+@Data
 public class HouseTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "house_id")
-    private Long houseId;
+    private Integer houseId;
 
     private String name;
 
     public HouseTag() {
     }
 
-    public HouseTag(Long houseId, String name) {
+    public HouseTag(Integer houseId, String name) {
         this.houseId = houseId;
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getHouseId() {
-        return houseId;
-    }
-
-    public void setHouseId(Long houseId) {
-        this.houseId = houseId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

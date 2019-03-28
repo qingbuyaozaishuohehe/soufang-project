@@ -4,6 +4,7 @@ package com.xu.soufang.web.controller.admin;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
+import com.xu.soufang.base.ApiDataTableResponse;
 import com.xu.soufang.base.ApiResponse;
 import com.xu.soufang.entity.SupportAddress;
 import com.xu.soufang.service.ServiceResult;
@@ -63,6 +64,11 @@ public class AdminController {
     @GetMapping("/admin/login")
     public String adminLoginPage(){
         return "admin/login";
+    }
+
+    @GetMapping("/admin/house/list")
+    public String adminHouseList(){
+        return "admin/house-list";
     }
 
     @GetMapping("/admin/add/house")
@@ -147,6 +153,12 @@ public class AdminController {
             return ApiResponse.ofSuccess(result.getResult());
         }
         return ApiResponse.ofSuccess(ApiResponse.Status.NOT_VALID_PARAM);
+    }
+
+    @PostMapping("admin/houses")
+    @ResponseBody
+    public ApiDataTableResponse houses(){
+        return null;
     }
 
 }
