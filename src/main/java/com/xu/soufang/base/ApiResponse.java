@@ -15,14 +15,14 @@ public class ApiResponse {
 
     private String message;
 
-    private Object date;
+    private Object data;
 
     private boolean more;
 
     public ApiResponse(int code, String message, Object date) {
         this.code = code;
         this.message = message;
-        this.date = date;
+        this.data = date;
     }
 
     public ApiResponse() {

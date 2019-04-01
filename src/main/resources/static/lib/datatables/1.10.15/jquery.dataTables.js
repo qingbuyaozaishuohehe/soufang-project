@@ -4133,10 +4133,13 @@
 		_fnClearTable( settings );
 		settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 		settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
-	
-		for ( var i=0, ien=data.length ; i<ien ; i++ ) {
-			_fnAddData( settings, data[i] );
+
+		if (data){
+			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+				_fnAddData( settings, data[i] );
+			}
 		}
+
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 	
 		settings.bAjaxDataGet = false;

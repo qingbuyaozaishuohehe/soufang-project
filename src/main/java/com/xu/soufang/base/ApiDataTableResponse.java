@@ -16,12 +16,13 @@ public class ApiDataTableResponse extends ApiResponse{
 
      private long recordsFiltered;
 
-     public ApiDataTableResponse(int code, String message, Object date, int draw, long recordsTotal, long recordsFiltered) {
-          super(code, message, date);
-          this.draw = draw;
-          this.recordsTotal = recordsTotal;
-          this.recordsFiltered = recordsFiltered;
+
+     public ApiDataTableResponse(int code,String message,Object data){
+          super(code,message,data);
      }
 
+     public ApiDataTableResponse(ApiResponse.Status status){
+          this(status.getCode(),status.getStandarMessage(),null);
+     }
 
 }

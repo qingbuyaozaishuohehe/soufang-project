@@ -7,6 +7,7 @@ import com.qiniu.http.Response;
 import com.xu.soufang.base.ApiDataTableResponse;
 import com.xu.soufang.base.ApiResponse;
 import com.xu.soufang.entity.SupportAddress;
+import com.xu.soufang.service.ServiceMultiResult;
 import com.xu.soufang.service.ServiceResult;
 import com.xu.soufang.service.house.IAddressService;
 import com.xu.soufang.service.house.IHouseService;
@@ -14,6 +15,7 @@ import com.xu.soufang.service.house.IQiNiuService;
 import com.xu.soufang.web.controller.dto.QiNiuPutRet;
 import com.xu.soufang.web.controller.dto.house.HouseDTO;
 import com.xu.soufang.web.controller.dto.house.SupportAddressDto;
+import com.xu.soufang.web.controller.form.DataTableSearch;
 import com.xu.soufang.web.controller.form.HouseForm;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,10 +157,19 @@ public class AdminController {
         return ApiResponse.ofSuccess(ApiResponse.Status.NOT_VALID_PARAM);
     }
 
-    @PostMapping("admin/houses")
+    @PostMapping("/admin/houses")
     @ResponseBody
-    public ApiDataTableResponse houses(){
-        return null;
+    public ApiDataTableResponse houses(@ModelAttribute DataTableSearch  search){
+
+        ServiceMultiResult<HouseDTO> result = houseService.adminQuery(search);
+
+        ApiDataTableResponse response = new ApiDataTableResponse(ApiDataTableResponse.Status.SUCCESS);
+        response.setData(result.getResult());
+        response.setRecordsFiltered(result.getTotal());
+        response.setRecordsTotal(result.getTotal());
+        response.setDraw(search.getDraw());
+
+        return response;
     }
 
 }

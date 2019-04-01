@@ -1,16 +1,15 @@
 package com.xu.soufang;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.qiniu.util.Json;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -21,15 +20,25 @@ public class SoufangProjectApplicationTests {
 
     @Test
     public void contextLoads() {
+        List<Map> lis = new ArrayList<Map>();
         Map map = new HashMap();
         map.put("enterpriseId","xxxxxxxxxxxx");
         map.put("page",1);
         map.put("pageSize",1000);
-        Object o  = JSONObject.toJSON(map);
-        String s = JSONObject.toJSONString(map);
+        lis.add(map);
+        Map map1 = new HashMap();
+        map1.put("enterpriseId","fdgdfsfsfdsf");
+        map1.put("page",2);
+        map1.put("pageSize",3000);
+        lis.add(map1);
+        try {
+            String jsonEntity = new ObjectMapper().writeValueAsString(lis);
+            System.out.println(jsonEntity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        JSONObject itemJSONObj = JSONObject.parseObject(JSON.toJSONString(map));
-        System.out.println(s);
+
     }
 
 }

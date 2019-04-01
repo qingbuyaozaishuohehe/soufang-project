@@ -1,8 +1,10 @@
 package com.xu.soufang.service.house;
 
 
+import com.xu.soufang.service.ServiceMultiResult;
 import com.xu.soufang.service.ServiceResult;
 import com.xu.soufang.web.controller.dto.house.HouseDTO;
+import com.xu.soufang.web.controller.form.DataTableSearch;
 import com.xu.soufang.web.controller.form.HouseForm;
 
 /**
@@ -19,4 +21,6 @@ public interface IHouseService {
      */
     ServiceResult<HouseDTO> save(HouseForm houseForm);
 
+
+    ServiceMultiResult<HouseDTO> adminQuery(DataTableSearch search);
 }
