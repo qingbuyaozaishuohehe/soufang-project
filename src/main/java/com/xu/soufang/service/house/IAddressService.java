@@ -2,6 +2,7 @@ package com.xu.soufang.service.house;
 
 import com.xu.soufang.entity.SupportAddress;
 import com.xu.soufang.service.ServiceMultiResult;
+import com.xu.soufang.service.ServiceResult;
 import com.xu.soufang.web.controller.dto.house.SubwayDTO;
 import com.xu.soufang.web.controller.dto.house.SubwayStationDTO;
 import com.xu.soufang.web.controller.dto.house.SupportAddressDto;
@@ -55,5 +56,12 @@ public interface IAddressService {
      * @return
      */
     Map<SupportAddress.Level, SupportAddressDto> findCityAndRegion(String cityEnName, String regionEnName);
+
+    /**
+     * 根据城市英文简写获取城市详细信息
+     * @param cityEnName
+     * @return
+     */
+    ServiceResult<SupportAddressDto> findCity(String cityEnName);
 
 }

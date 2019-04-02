@@ -16,6 +16,7 @@ import com.xu.soufang.service.house.IHouseService;
 import com.xu.soufang.web.controller.dto.house.HouseDTO;
 import com.xu.soufang.web.controller.form.DataTableSearch;
 import com.xu.soufang.web.controller.form.HouseForm;
+import com.xu.soufang.web.controller.form.RentSearch;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,13 +25,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -126,6 +123,21 @@ public class HouseServiceImpl implements IHouseService {
         return new ServiceMultiResult<>(Integer.valueOf(houses.getTotalElements()+""),houseDTOList);
     }
 
+    @Override
+    public ServiceMultiResult<HouseDTO> query(RentSearch rentSearch) {
+       /* if (rentSearch.getKeywords() != null && !rentSearch.getKeywords().isEmpty()) {
+            ServiceMultiResult<Long> serviceResult = searchService.query(rentSearch);
+            if (serviceResult.getTotal() == 0) {
+                return new ServiceMultiResult<>(0, new ArrayList<>());
+            }
+
+            return new ServiceMultiResult<>(serviceResult.getTotal(), wrapperHouseResult(serviceResult.getResult()));
+        }
+
+        return simpleQuery(rentSearch);*/
+       return null;
+    }
+
     private ServiceResult<HouseDTO> wrapperDetailInfo(HouseDetail houseDetail,HouseForm houseForm){
         Subway subway = subWayRepository.findById(houseForm.getSubwayLineId()).get();
         if (subway == null){
@@ -149,4 +161,23 @@ public class HouseServiceImpl implements IHouseService {
         houseDetail.setTraffic(houseForm.getTraffic());
         return null;
     }
+
+
+    private ServiceMultiResult<HouseDTO> simpleQuery(RentSearch rentSearch) {
+        /*Sort sort = HouseSort.generateSort(rentSearch.getOrderBy(), rentSearch.getOrderDirection());
+        int page = rentSearch.getStart() / rentSearch.getSize();
+
+        Pageable pageable = new PageRequest(page, rentSearch.getSize(), sort);
+
+        Specification<House> specification = (root, criteriaQuery, criteriaBuilder) -> {
+            Predicate predicate = criteriaBuilder.equal(root.get("status"), HouseStatus.PASSES.getValue());
+
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("cityEnName"), rentSearch.getCityEnName()));
+
+            if (HouseSort.DISTANCE_TO_SUBWAY_KEY.equals(rentSearch.getOrderBy())) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.gt(root.get(HouseSort.DISTANCE_TO_SUBWAY_KEY), -1));
+            }
+            return predicate;*/
+        return null;
+        }
 }

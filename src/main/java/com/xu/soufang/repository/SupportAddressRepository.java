@@ -1,6 +1,8 @@
 package com.xu.soufang.repository;
 
 import com.xu.soufang.entity.SupportAddress;
+import com.xu.soufang.service.ServiceResult;
+import com.xu.soufang.web.controller.dto.house.SupportAddressDto;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -28,5 +30,11 @@ public interface SupportAddressRepository extends CrudRepository<SupportAddress,
      */
      List<SupportAddress> findAllByLevelAndBelongTo(String level,String cityName);
 
-
+    /**
+     * 根据城市名和城市级别查询
+     * @param cityName
+     * @param level
+     * @return
+     */
+     SupportAddress findByEnNameAndLevel(String cityName,String level);
 }

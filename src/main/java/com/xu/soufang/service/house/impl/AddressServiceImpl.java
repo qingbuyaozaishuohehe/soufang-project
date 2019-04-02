@@ -7,6 +7,7 @@ import com.xu.soufang.repository.SubWayRepository;
 import com.xu.soufang.repository.SubwayStationRepository;
 import com.xu.soufang.repository.SupportAddressRepository;
 import com.xu.soufang.service.ServiceMultiResult;
+import com.xu.soufang.service.ServiceResult;
 import com.xu.soufang.service.house.IAddressService;
 import com.xu.soufang.web.controller.dto.house.SubwayDTO;
 import com.xu.soufang.web.controller.dto.house.SubwayStationDTO;
@@ -85,6 +86,23 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public Map<SupportAddress.Level, SupportAddressDto> findCityAndRegion(String cityEnName, String regionEnName) {
         return null;
+    }
+
+    @Override
+    public ServiceResult<SupportAddressDto> findCity(String cityEnName) {
+        if (cityEnName == null){
+            return ServiceResult.notFound();
+        }
+
+        SupportAddress supportAddress = supportAddressRepository.findByEnNameAndLevel(cityEnName, SupportAddress.Level.CITY.getValue());
+
+        if (supportAddress == null){
+            return ServiceResult.notFound();
+        }
+
+        SupportAddressDto map = modelMapper.map(supportAddress, SupportAddressDto.class);
+
+        return ServiceResult.of(map);
     }
 
 }

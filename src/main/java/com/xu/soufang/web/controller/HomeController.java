@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    public String index(){
-        return "admin/center";
+    @GetMapping(value = {"/", "/index"})
+    public String index(Model model) {
+        return "index";
     }
 
     @GetMapping("/get")
