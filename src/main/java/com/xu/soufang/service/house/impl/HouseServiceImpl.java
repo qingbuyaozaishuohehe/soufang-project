@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.PAData;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
@@ -125,6 +126,20 @@ public class HouseServiceImpl implements IHouseService {
 
     @Override
     public ServiceMultiResult<HouseDTO> query(RentSearch rentSearch) {
+        Sort sort = new Sort(Sort.Direction.DESC,"lastUpdateTime");
+
+        int page = rentSearch.getStart() / rentSearch.getSize();
+
+        Pageable pageable = PageRequest.of(page,rentSearch.getSize(),sort);
+
+        Specification specification = (root,query,cb)->{
+            Predicate predicate = cb.equal(root.get("status"),HouseStatus.PASSES.getValue());
+            predicate = cb.and(predicate,cb.equal(root.get("cityEnName"),rentSearch.getCityEnName()));
+            return predicate;
+        };
+
+        Page<House> houses = houseRepository.findAll(specification,pageable);
+
        /* if (rentSearch.getKeywords() != null && !rentSearch.getKeywords().isEmpty()) {
             ServiceMultiResult<Long> serviceResult = searchService.query(rentSearch);
             if (serviceResult.getTotal() == 0) {
@@ -135,7 +150,15 @@ public class HouseServiceImpl implements IHouseService {
         }
 
         return simpleQuery(rentSearch);*/
-       return null;
+        List<HouseDTO> houseDTOs = new ArrayList<>();
+        houses.forEach(house -> {
+            HouseDTO houseDTO = new HouseDTO();
+            houseDTO = modelMapper.map(house,HouseDTO.class);
+            houseDTO.setCover(this.cdnPrefix+house.getCover());
+            houseDTOs.add(houseDTO);
+        });
+
+        return new ServiceMultiResult<>(Integer.valueOf(houses.getTotalElements()+""),houseDTOs);
     }
 
     private ServiceResult<HouseDTO> wrapperDetailInfo(HouseDetail houseDetail,HouseForm houseForm){

@@ -132,9 +132,8 @@ public class HouseController {
 
         ServiceMultiResult<HouseDTO> serviceMultiResult= houseService.query(rentSearch);
 
-//        model.addAttribute("total", serviceMultiResult.getTotal());
-        model.addAttribute("total", 0);
-        model.addAttribute("houses",new ArrayList<>());
+        model.addAttribute("total", serviceMultiResult.getTotal());
+        model.addAttribute("houses",serviceMultiResult.getResult());
 
         if (rentSearch.getRegionEnName() == null){
             rentSearch.setRegionEnName("*");

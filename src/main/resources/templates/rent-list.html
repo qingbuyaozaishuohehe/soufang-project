@@ -53,7 +53,7 @@
 <!-- 面包屑模块 -->
 <div class="intro clear" mod-id="lj-common-bread">
     <div class="container">
-        <div class="fl l-txt"><i class="icon"></i>&nbsp;<a href="/">寻屋</a><span
+        <div class="fl l-txt"><i class="icon"></i>&nbsp;<a href="/">    寻屋</a><span
                 class="stp">&nbsp;&gt;&nbsp;</span>[<a href="/" title="选择城市">
             <span th:text="${currentCity.cnName}">城市</span></a>]租房
         </div>
@@ -80,13 +80,12 @@
                                onclick="changeSimpleCondition('regionEnName', '*')">不限</a>
                             <tr th:each="region, regionStat: ${regions}">
                                 <a th:attr="data-bind=${region.enName}" href="javascript:void(0);"
-                                   th:onclick="'changeSimpleCondition(\'regionEnName\', \'' + ${region.enName} + '\')'"
+                                   th:onclick="changeSimpleCondition([[${region.enName}]]);"
                                    th:text="${region.cnName}"></a>
                             </tr>
                         </div>
                     </dd>
-                </dl>
-                <dl class="dl-lst clear">
+
                     <dt>租金：</dt>
                     <dd data-index="1">
                         <div class="option-list price-select">
@@ -95,7 +94,7 @@
                             </a>
                             <tr th:each="priceBlock : ${priceBlocks}">
                                 <a th:attr="data-bind=${priceBlock.key}" href="javascript:void(0);"
-                                   th:onclick="'changeSimpleCondition(\'priceBlock\',\'' + ${priceBlock.key} + '\')'"
+                                   th:onclick="changeSimpleCondition([[${priceBlock.key}]]);"
                                    th:text="${priceBlock.value.min < 0} ? (${priceBlock.value.max} + '元以下' ):
                                     (${priceBlock.value.max < 0} ? ${priceBlock.value.min} + '元以上' :
                                      ${priceBlock.value.min} + '-' + ${priceBlock.value.max} + '元')">
@@ -103,8 +102,7 @@
                             </tr>
                         </div>
                     </dd>
-                </dl>
-                <dl class="dl-lst clear">
+
                     <dt>面积：</dt>
                     <dd data-index="2">
                         <div class="option-list area-select">
@@ -113,7 +111,7 @@
                             </a>
                             <tr th:each="areaBlock : ${areaBlocks}">
                                 <a th:attr="data-bind=${areaBlock.key}" href="javascript:void(0);"
-                                   th:onclick="'changeSimpleCondition(\'areaBlock\',\'' + ${areaBlock.key} + '\')'"
+                                   th:onclick="changeSimpleCondition([[${areaBlock.key}]]);"
                                    th:text="${areaBlock.value.min < 0} ? (${areaBlock.value.max} + '平以下' ):
                                     (${areaBlock.value.max < 0} ? ${areaBlock.value.min} + '平以上' :
                                      ${areaBlock.value.min} + '-' + ${areaBlock.value.max} + '平')">
